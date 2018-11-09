@@ -2,47 +2,46 @@
 <html lang="en">
 
 <head>
-        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
-        <script>
-          // Initialize Firebase
-          var config = {
-            apiKey: "AIzaSyCfRx0VipA1hdXHrXvDEktgjH9k9LrguCM",
-            authDomain: "startupsimulation-2146b.firebaseapp.com",
-            databaseURL: "https://startupsimulation-2146b.firebaseio.com",
-            projectId: "startupsimulation-2146b",
-            storageBucket: "startupsimulation-2146b.appspot.com",
-            messagingSenderId: "822796022567"
-          };
-          firebase.initializeApp(config);
-        </script>
-    <title>StarUp Simulation 2018</title>
+  <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCfRx0VipA1hdXHrXvDEktgjH9k9LrguCM",
+      authDomain: "startupsimulation-2146b.firebaseapp.com",
+      databaseURL: "https://startupsimulation-2146b.firebaseio.com",
+      projectId: "startupsimulation-2146b",
+      storageBucket: "startupsimulation-2146b.appspot.com",
+      messagingSenderId: "822796022567"
+    };
+    firebase.initializeApp(config);
+  </script>
 
+  <title>StarUp Simulation 2018</title>
 
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./index.css">
-    <script src="js/typed.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="./index.css">
+  <script src="js/typed.js"></script>
+  
 </head>
+
 <body>
 
-    <form>
-        <div class="form-group">
-          <label for="InputEmail1">Email address</label>
-          <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="InputPassword">Password</label>
-          <input type="password" class="form-control" id="InputPassword" placeholder="Enter password">
-        </div>
+  <div class="form-group">
+    <label for="InputEmail1">Email address</label>
+    <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="InputPassword">Password</label>
+    <input type="password" class="form-control" id="InputPassword" placeholder="Enter password">
+  </div>
 
-        <button onclick="createuser" id="button" type="submit" class="btn btn-primary">Submit</button>
+  <button onclick="createuser()" id="button" type="submit" class="btn btn-primary">Submit</button>
 
-      </form>
 
 </body>
 
@@ -52,22 +51,19 @@
 
 
 <script>
-window.onload=function () {
-    document.getElementById("button") .addEventListener('click',createuser,false)
-};
-function createuser (){
-console.log("potato");
-    var email= document.getElementById("InputEmail1").value;
+  function createuser() {
+    console.log("potato");
+
+    var email = document.getElementById("InputEmail1").value;
     var password = document.getElementById("InputPassword").value;
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  console.log (errorCode);
-  console.log (errorMessage);
-  // ...
-});
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
 
-};
+    });
+
+  };
 </script>
-
