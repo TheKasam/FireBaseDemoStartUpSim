@@ -2,6 +2,19 @@
 <html lang="en">
 
 <head>
+        <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCfRx0VipA1hdXHrXvDEktgjH9k9LrguCM",
+            authDomain: "startupsimulation-2146b.firebaseapp.com",
+            databaseURL: "https://startupsimulation-2146b.firebaseio.com",
+            projectId: "startupsimulation-2146b",
+            storageBucket: "startupsimulation-2146b.appspot.com",
+            messagingSenderId: "822796022567"
+          };
+          firebase.initializeApp(config);
+        </script>
     <title>StarUp Simulation 2018</title>
 
 
@@ -13,52 +26,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./index.css">
     <script src="js/typed.js"></script>
-
+</head>
 <body>
-
-    <!-- create navBar -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-left" href="#page-content">
-                    <img alt="Brand" src="img/Event.png" width="100">
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a class="page_scroll" id="page-scroll" href="#home">Home</a></li>
-                    <li><a class="page_scroll" id="page-scroll" href="#about">About</a></li>
-                    <li><a class="page_scroll" id="page-scroll" href="#FAQQ">FAQ</a></li>
-                    <li><a class="page_scroll" id="page-scroll" href="#email">Contact Us</a></li>
-                    <li><a class="page_scroll" id="page-scroll" href="#schedulee">Schedule</a></li>
-                    <li class="navbar-right"><a class="page_scroll " id="page-scroll" href="#SignUp">Sign Up</a></li>
-
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="example">
-        <h1 class="one">1Hello world</h1>
-        <h1 class="two">2Hello world</h1>
-        <h1 class="three">3Hello world</h1>
-    </div>
 
     <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <label for="InputEmail1">Email address</label>
+          <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <label for="InputPassword">Password</label>
+          <input type="password" class="form-control" id="InputPassword" placeholder="Enter password">
         </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <button onclick="createuser" id="button" type="submit" class="btn btn-primary">Submit</button>
+
       </form>
 
 </body>
@@ -67,16 +50,24 @@
 
 
 
-<script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+
 <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyCfRx0VipA1hdXHrXvDEktgjH9k9LrguCM",
-    authDomain: "startupsimulation-2146b.firebaseapp.com",
-    databaseURL: "https://startupsimulation-2146b.firebaseio.com",
-    projectId: "startupsimulation-2146b",
-    storageBucket: "startupsimulation-2146b.appspot.com",
-    messagingSenderId: "822796022567"
-  };
-  firebase.initializeApp(config);
+window.onload=function () {
+    document.getElementById("button") .addEventListener('click',createuser,false)
+};
+function createuser (){
+console.log("potato");
+    var email= document.getElementById("InputEmail1").value;
+    var password = document.getElementById("InputPassword").value;
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  console.log (errorCode);
+  console.log (errorMessage);
+  // ...
+});
+
+};
 </script>
+
