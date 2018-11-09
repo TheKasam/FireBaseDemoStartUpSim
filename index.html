@@ -65,6 +65,173 @@
 
 </html>
 
+<script>
+
+    function handleSignIn(){
+
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var isError = false;
+
+        if (email.length <1) {
+          document.getElementById("e12").style.display = "initial";
+          document.getElementById('e12').innerHTML = "Please enter an email address.";
+          isError = true;
+        } else {
+          document.getElementById("e12").style.display = "none";
+        }
+
+        if (password.length <1) {
+          document.getElementById("e22").style.display = "initial";
+          document.getElementById('e22').innerHTML = "Please enter an password.";
+          isError = true;
+        } else {
+          document.getElementById("e22").style.display = "none";
+        }
+        if (isError){
+           return;
+        }
+
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          document.getElementById("e22").style.display = "initial";
+          document.getElementById('e22').innerHTML = "Wrong password."
+          isError = true;
+        } else {
+          document.getElementById("e22").style.display = "none";
+        }
+
+        if(errorCode ==='auth/user-not-found') {
+            document.getElementById("e12").style.display = "initial";
+            document.getElementById('e12').innerHTML = "User not found.";
+            isError = true;
+        } else {
+            document.getElementById("e12").style.display = "none";
+        }
+
+        if (errorCode && errorCode !='auth/user-not-found') {
+          firebase.auth().fetchProvidersForEmail(email.trim()).then(function(providers) {
+          if (providers[0] == "google.com"){
+              document.getElementById("e22").style.display = "initial";
+              document.getElementById('e22').innerHTML = "Please continue with google.";
+              isError = true;
+          } else {
+          document.getElementById("e22").style.display = "initial";
+          document.getElementById('e22').innerHTML = errorCode;
+          isError = true;
+          }
+
+
+        });
+        } else {
+          document.getElementById("e22").style.display = "none";
+        }
+
+
+        if (isError){
+            return;
+        }
+
+
+
+        }).then(() => {
+                firebase.auth().onAuthStateChanged(function(user) {
+
+                if (user){
+                var emailVerified = user.emailVerified;
+                    if (emailVerified == false){
+                        document.location.href = 'emailVerification.html';
+                    } else {
+                        document.location.href = 'add.html';
+                    }
+
+
+                } else {
+                    console.log("error");
+                }
+
+
+                 });
+           });
+
+
+    }
+
+
+
+    function initApp() {
+       // Listening for auth state changes.
+       firebase.auth().onAuthStateChanged(function(user) {
+
+         if (user) {
+             var emailVerified = user.emailVerified;
+             if (emailVerified == false){
+                 document.location.href = 'emailVerification.html';
+
+            }
+
+         } else {
+          //document.getElementById('initial').textContent = 'not signed in';
+
+         }
+
+          // [END_EXCLUDE]
+       });
+       // [END authstatelistener]
+
+
+
+       document.getElementById('sign-in-btn').addEventListener('click', handleSignIn, false);
+       document.getElementById('google-sign-in').addEventListener('click', google, false);
+
+
+     }
+     window.onload = function() {
+       initApp();
+     };
+
+
+    function google(){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+        provider.addScope('https://www.googleapis.com/auth/userinfo.profile');
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        //alert(user.displayName);
+
+        var email = user.email;
+        var name = user.displayName;
+        var uid = user.uid;
+
+        return firebase.database().ref().child('users').child(uid).update({
+
+          email:email,
+          name:name
+        }).then(() => {
+               document.location.href = 'add.html';
+           });
+
+
+    // ...
+    }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+    });
+
+    }
+    </script>
 
 <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
 <script>
