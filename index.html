@@ -60,24 +60,29 @@
 
     var email = document.getElementById("InputEmail1").value;
     var password = document.getElementById("InputPassword").value;
+    
     if (email.length <1) {
-          document.getElementById("e12").style.display = "initial";
-          document.getElementById('e12').innerHTML = "Please enter an email address.";
-          isError = true;
-        } else {
-          document.getElementById("e12").style.display = "none";
-        }
+        document.getElementById("e12").style.display = "initial";
+        document.getElementById('e12').innerHTML = "Please enter an email address.";
+        isError = true;
+    } else {
+        document.getElementById("e12").style.display = "none";
+    }
 
-        if (password.length <1) {
-          document.getElementById("e22").style.display = "initial";
-          document.getElementById('e22').innerHTML = "Please enter a password.";
-          isError = true;
-        } else {
-          document.getElementById("e22").style.display = "none";
-        }
-        if (isError){
-           return;
-        }
+    if (password.length <1) {
+        document.getElementById("e22").style.display = "initial";
+        document.getElementById('e22').innerHTML = "Please enter a password.";
+        isError = true;
+    } else {
+        document.getElementById("e22").style.display = "none";
+    }
+    if (isError){
+        console.log("dumpling")
+        return;
+    }
+
+        console.log("hungry");
+    
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
