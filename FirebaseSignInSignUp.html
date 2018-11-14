@@ -4,7 +4,7 @@
 <div id="login_display" class="main_div">
     <!-- The design of the webpage all HTML -->
     <head>
-    <title>StarUp Simulation 2018</title>
+    <title>StartUp Simulation 2018</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,17 +17,19 @@
     </head>
 
     <body>
-
+    <div class="form-group">
+        <label for="InputTeam">Team Number</label>
+        <input type="text" class="form-control" id="InputTeam" placeholder="Enter team number">
+        <small id="teamNameHelp" class="form-text text-danger">This field is required.</small>
+    </div>
     <div class="form-group">
         <label for="InputEmail">Email address</label>
         <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email"> 
-        <p class='e12 e' id='e12'><p>
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
         <label for="InputPassword">Password</label>
         <input type="password" class="form-control" id="InputPassword" placeholder="Enter password">
-        <p class='e22 e' id='e22'><p></p>
         <small id="passwordHelp" class="form-text text-muted">We'll never share your password with anyone else.</small>
     </div>
     

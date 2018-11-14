@@ -40,8 +40,22 @@ function signin() {
 function signup(){
     var userEmail = document.getElementById("InputEmail").value;
     var userPassword = document.getElementById("InputPassword").value;
+    var userTeam = document.getElementById("InputTeam").value;
 
-    firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).catch(function(error) {
+    firebase.auth().createUserWithEmailAndPassword(userEmail, userPassword).then(function success(userData){
+          var uid = userData.user.uid; // The UID of recently created user on firebase
+
+          var displayName = userData.user.displayName;
+          var email = userData.user.email;
+          var photoURL = userData.user.photoURL;
+          // send user info to users table
+          firebase.database().ref('users/' + uid).set({
+            username: displayName,
+            email: email,
+            profile_picture : photoURL,
+            teamid : userTeam
+          });
+      }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -55,3 +69,6 @@ function logout(){
     firebase.auth().signOut();
     //document.getElementById("user_display").style.display = "initial";
 }
+
+
+
